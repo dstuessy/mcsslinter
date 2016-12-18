@@ -8,5 +8,5 @@ module.exports = (function () {
 
     };
 
-    return Linter
+    return Linter;
 } ());
