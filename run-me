@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+const Linter = require('./mcsslint.js');
+
+Linter.lint('dev/styles');

@@ -1,0 +1,14 @@
+{
+  "name": "maintainablecss-lint",
+  "version": "1.0.0",
+  "description": "A CSS linter following MaintainableCSS rules.",
+  "main": "mcsslint.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Stuessy",
+  "license": "ISC",
+  "devDependencies": {
+    "css": "^2.2.1"
+  }
+}
