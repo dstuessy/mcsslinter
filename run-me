@@ -2,4 +2,6 @@
 
 const Linter = require('./mcsslint.js');
 
-Linter.lint('dev/styles');
+var errors = Linter.lint('dev/styles');
+
+console.log(errors);

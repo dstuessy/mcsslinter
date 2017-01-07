@@ -1,5 +1,8 @@
 const fs = require('fs');
 const css = require('css');
+const flattenArray = require('./util/util.flattenArray.js');
+
+const mcssRules = require('./mcss-rules/mcss-rules.js');
 
 module.exports = (function () {
 
@@ -28,20 +31,28 @@ module.exports = (function () {
         return fs.readFileSync(filePath).toString();
     }
 
-    function lintCss(fileModules) {
-        console.log();
+    function lintCss(fileModule, fileModules, mcssRules) {
+        return mcssRules.reduce((results, mcssRule) => {
+            let ruleFn = mcssRule.rule;
+            return results.concat(ruleFn(fileModule, fileModules));
+        }, []);
     }
 
     Linter.lint = function (dirPath) {
         let filePaths = getFilePaths(dirPath);
         let fileModules = filePaths.map(filePath => {
+            let fileContent = getFileContent(filePath);
+            let parsedFileContent = css.parse(fileContent);
+
             return {
                 filePath: filePath,
-                rules: getFileContent(filePath)
+                stylesheet: parsedFileContent.stylesheet
             };
         });
+        let lintingResults = fileModules.map(fileModule => lintCss(fileModule, fileModules, mcssRules));
+        let flattenedLintingResults = flattenArray(lintingResults);
 
-        lintCss(fileModules);
+        return flattenedLintingResults;
     };
 
     return Linter;
