@@ -55,5 +55,11 @@ module.exports = (function () {
         return flattenedLintingResults;
     };
 
+    Linter.log = function (errors, output) {
+        errors.forEach(output || function (error) {
+            console.log(`${error.message}\n\tin line ${error.position.start.line} and column ${error.position.start.column} of file ${error.filePath}\n`);
+        });
+    };
+
     return Linter;
 } ());
