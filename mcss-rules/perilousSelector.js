@@ -11,7 +11,8 @@ module.exports = {
             let dangerousSelectors = rule.selectors.filter(selector => {
                 let isTagname = selector.match(/^\./) === null;
                 let hasChevron = selector.indexOf('>') > -1;
-                let isPerilous = isTagname || hasChevron;
+                let hasNestedClasses = selector.match(/\.[\w]/g) !== null && selector.match(/\.[\w]/g).length > 1;
+                let isPerilous = isTagname || hasChevron || hasNestedClasses;
 
                 return isPerilous;
             }).map(selector => {
